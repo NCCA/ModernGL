@@ -9,14 +9,14 @@ All extension loading libraries are assumed to be installed via vcpkg or in the 
   - Qt5
   - SDL2
   - GLFW
-  - FreeGlLUT
+  - FreeGLUT
   - SFML
   - wxWindows
   - Win32 (Windows Only) 
 
 Extension loading will have examples from the following
 
-  - GLUT
+  - GLEW
   - GL3W
   - glLoaderGen
   - Galogen
