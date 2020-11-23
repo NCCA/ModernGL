@@ -14,7 +14,16 @@ All extension loading libraries are assumed to be installed via vcpkg or in the 
   - wxWindows
   - Win32 (Windows Only) 
 
-<!-- toc -->
+Extension loading will have examples from the following
+
+  - GLUT
+  - GL3W
+  - glLoaderGen
+  - Galogen
+  - glad
+  - glatter
+  - glbinding
+  - libepoxy
 
 ## OpenGL Code
 
@@ -127,4 +136,11 @@ The function will return the shaderID of the program and by default it will enab
 [**GLFWTriangleGLEW**](GLFWTriangleGLEW) :- use [GLFW3](https://www.glfw.org/) to create and OpenGL context and GLEW to load extensions. This will work under mac, windows and linux as long as SDL2 and GLEW are installed.
 
 
-TODO add the libs from here https://www.khronos.org/opengl/wiki/OpenGL_Loading_Library#glLoadGen_.28OpenGL_Loader_Generator.29
+## TODO 
+
+- add the libs from here https://www.khronos.org/opengl/wiki/OpenGL_Loading_Library#glLoadGen_.28OpenGL_Loader_Generator.29
+- investigate EGL
+- Python Demos
+- WebGL simple demo
+- OpenGL ES Demo?
+
