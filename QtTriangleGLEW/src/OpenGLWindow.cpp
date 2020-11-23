@@ -37,7 +37,7 @@ void OpenGLWindow::initializeGL()
 
   std::cerr << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
 
-  // create the Quad
+  // create the triangle
   m_vaoID=createTriangle(0.8f);
 const std::string vertex =R"(
 #version 400 core
