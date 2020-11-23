@@ -1,5 +1,6 @@
-
-#include <GL/glew.h>
+#ifndef __APPLE__
+  #include <GL/glew.h>
+#endif
 #include <array>
 #include "OpenGLWindow.h"
 #include <QKeyEvent>
@@ -16,13 +17,14 @@ OpenGLWindow::OpenGLWindow()
 OpenGLWindow::~OpenGLWindow()
 {
   glDeleteProgram(m_shaderID);
+  glDeleteVertexArrays(1,&m_vaoID);
 }
 
 
 
 void OpenGLWindow::initializeGL()
 {
-
+#ifndef __APPLE__
   GLenum err = glewInit();
   if (GLEW_OK != err)
   {
@@ -30,7 +32,7 @@ void OpenGLWindow::initializeGL()
   QApplication::exit(EXIT_FAILURE);
   }
   std::cerr<<"Status: Using GLEW"<< glewGetString(GLEW_VERSION)<<'\n';
-
+#endif
   glClearColor(0.4f, 0.4f, 0.4f, 1.0f);			   // Grey Background
 
   std::cerr << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;

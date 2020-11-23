@@ -1,7 +1,13 @@
 #include <memory>
 #include <array>
 #include <iostream>
-#include <GL/glew.h>
+#ifndef __APPLE__
+  #include <GL/glew.h>
+#else
+  #include <OpenGL/gl3.h>
+#endif
+
+
 
 GLuint createTriangle(float _size)
 {
@@ -20,12 +26,14 @@ GLuint createTriangle(float _size)
   glGenBuffers(1, &vboID);
   // now bind this to the VBO buffer
   glBindBuffer(GL_ARRAY_BUFFER, vboID);
-  // allocate the buffer datra
+  // allocate the buffer data
   glBufferData(GL_ARRAY_BUFFER, vert.size()*sizeof(float), &vert[0], GL_STATIC_DRAW);
   // now fix this to the attribute buffer 0
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
   // enable and bind this attribute (will be inPosition in the shader)
   glEnableVertexAttribArray(0);
+
+  // Now for the colour
 
   std::array<float,9> colour={1.0f,0.0f,0.0f,
                               0.0f,1.0f,0.0f,
@@ -35,7 +43,7 @@ GLuint createTriangle(float _size)
   glGenBuffers(1, &colourvboID);
   // now bind this to the VBO buffer
   glBindBuffer(GL_ARRAY_BUFFER, colourvboID);
-  // allocate the buffer datra
+  // allocate the buffer data
   glBufferData(GL_ARRAY_BUFFER, colour.size()*sizeof(float), &colour[0], GL_STATIC_DRAW);
   // now fix this to the attribute buffer 1
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
