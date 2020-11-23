@@ -4,7 +4,15 @@
 
 These demos will load a simple shader and draw a triangle using Modern OpenGL. Each demo will use different methods to generate the OpenGL Context and load the extensions. 
 
-All extension loading libraries are assumed to be installed via vcpkg.
+All extension loading libraries are assumed to be installed via vcpkg or in the system cmake search paths. At present The following libraries are going to be used for OpenGL Context creation
+
+  - Qt5
+  - SDL2
+  - GLFW
+  - FreeGlLUT
+  - SFML
+  - wxWindows
+  - Win32 (Windows Only) 
 
 <!-- toc -->
 
@@ -117,3 +125,6 @@ The function will return the shaderID of the program and by default it will enab
 [**SDL2TriangleGLEW**](SDL2TriangleGLEW) :- use [SDL2](https://www.libsdl.org/) to create and OpenGL context and GLEW to load extensions. This will work under mac, windows and linux as long as SDL2 and GLEW are installed.
 
 [**GLFWTriangleGLEW**](GLFWTriangleGLEW) :- use [GLFW3](https://www.glfw.org/) to create and OpenGL context and GLEW to load extensions. This will work under mac, windows and linux as long as SDL2 and GLEW are installed.
+
+
+TODO add the libs from here https://www.khronos.org/opengl/wiki/OpenGL_Loading_Library#glLoadGen_.28OpenGL_Loader_Generator.29
