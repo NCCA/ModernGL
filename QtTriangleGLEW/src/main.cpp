@@ -25,7 +25,7 @@ int main(int argc, char **argv)
   #else
     // with luck we have the latest GL version so set to this
     format.setMajorVersion(4);
-    format.setMinorVersion(3);
+    format.setMinorVersion(5);
   #endif
   // now we are going to set to CoreProfile OpenGL so we can't use and old Immediate mode GL
   format.setProfile(QSurfaceFormat::CoreProfile);

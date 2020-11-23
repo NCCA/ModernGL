@@ -31,7 +31,7 @@ class OpenGLWindow : public QOpenGLWindow
    //---------------------------------------------------------------------------------------
    /// @brief this is called everytime we want to draw the scene
    //---------------------------------------------------------------------------------------
-   void resizeGL(int _w, int _h);
+   void resizeGL(int _w, int _h) override;
 
   private:
     //---------------------------------------------------------------------------------------

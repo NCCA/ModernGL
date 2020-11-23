@@ -10,7 +10,7 @@
 
 OpenGLWindow::OpenGLWindow()
 {
-  setTitle("First Shaders in OpenGL 3.2");
+  setTitle("First Shaders in OpenGL 4.1");
 }
 
 OpenGLWindow::~OpenGLWindow()
