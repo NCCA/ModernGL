@@ -113,3 +113,7 @@ The function will return the shaderID of the program and by default it will enab
 [**QtTriangleGLEW**](QtTriangleGLEW) :- use Qt to create and OpenGL context and Glew to load extensions. This will work under mac, windows and linux as long as Qt and GLEW are installed.
 
 [**WindowsTriangleGLEW**](WindowsTriangleGLEW) :- use Win32 to create a window and glew to load extensions. This is based on [this](https://gist.github.com/nickrolfe/1127313ed1dbf80254b614a721b3ee9c) gist for windows creation and could do with updating.
+
+[**SDL2TriangleGLEW**](SDL2TriangleGLEW) :- use [SDL2](https://www.libsdl.org/) to create and OpenGL context and GLEW to load extensions. This will work under mac, windows and linux as long as SDL2 and GLEW are installed.
+
+[**GLFWTriangleGLEW**](GLFWTriangleGLEW) :- use [GLFW3](https://www.glfw.org/) to create and OpenGL context and GLEW to load extensions. This will work under mac, windows and linux as long as SDL2 and GLEW are installed.
