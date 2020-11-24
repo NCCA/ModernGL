@@ -6,18 +6,17 @@ These demos will load a simple shader and draw a triangle using Modern OpenGL. E
 
 All extension loading libraries are assumed to be installed via vcpkg or in the system cmake search paths. At present The following libraries are going to be used for OpenGL Context creation
 
-  - Qt5
-  - SDL2
-  - GLFW
-  - FreeGLUT
-  - SFML
-  - wxWindows
-  - Win32 (Windows Only) 
-
+  - [Qt5](https://www.qt.io/)
+  - [SDL2](https://www.libsdl.org/)
+  - [GLFW](https://www.glfw.org/)
+  - [FreeGLUT](http://freeglut.sourceforge.net/)
+  - [SFML](https://www.sfml-dev.org/)
+  - [Win32](https://docs.microsoft.com/en-us/windows/win32/opengl/opengl) (Windows Only) 
+  - [Mac Native](https://developer.apple.com/documentation/appkit/nsapplication) (NSApplication Mac Only)
 Extension loading will have examples from the following
 
-  - GLEW
-  - GL3W
+  - [GLEW](http://glew.sourceforge.net/)
+  - [GL3W](https://github.com/skaslev/gl3w)
   - glLoaderGen
   - Galogen
   - glad
