@@ -1,12 +1,12 @@
 #include <cstdlib>
 #include <iostream>
-#include <GLFW/glfw3.h>
 #ifndef __APPLE__
   #include <GL/glew.h>
 #else
   #include <OpenGL/gl3.h>
 #endif
 #include "GLFunctions.h"
+#include <GLFW/glfw3.h>
 #include <memory>
 
 // key callback

@@ -16,7 +16,7 @@ set(TargetName GLFWTriangleGLEW)
 # find Qt libs
 find_package(GLFW3 CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
-if(${CMAKE_SYSTEM_NAME}  MATCHES "Linux" OR "Windows")
+if(${CMAKE_SYSTEM_NAME}  MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME}  MATCHES  "Windows")
 	find_package(GLEW REQUIRED)
 endif()
 	# use C++ 17
@@ -50,6 +50,6 @@ endif()
 # add exe and link libs that must be after the other defines
 target_link_libraries(${TargetName} PRIVATE  glfw OpenGL::GL)
 
-if(${CMAKE_SYSTEM_NAME}  MATCHES "Linux" OR "Windows")
+if(${CMAKE_SYSTEM_NAME}  MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME}  MATCHES  "Windows")
 	target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}  GLEW::GLEW)
 endif()

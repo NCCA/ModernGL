@@ -140,6 +140,7 @@ void main()
       default : break;
       } // end of event switch
     } // end of poll events
+    glClear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
     glBindVertexArray(vaoID);		// select first bind the array
     glDrawArrays(GL_TRIANGLES, 0, 3);	// draw object
