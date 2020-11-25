@@ -39,7 +39,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 	target_link_libraries(${TargetName} PRIVATE "-framework Metal")
 
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-	set ( PROJECT_LINK_LIBS -lGL)
+	set ( PROJECT_LINK_LIBS -lGL -lX11  -lXxf86vm)
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 	add_compile_definitions(_USE_MATH_DEFINES)
 	add_compile_definitions(NOMINMAX)
