@@ -14,7 +14,7 @@ project(GLFWTriangleGLEWBuild)
 # This is the name of the Exe change this and it will change everywhere
 set(TargetName GLFWTriangleGLEW)
 # find Qt libs
-find_package(GLFW3 CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
 if(${CMAKE_SYSTEM_NAME}  MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME}  MATCHES  "Windows")
 	find_package(GLEW REQUIRED)
