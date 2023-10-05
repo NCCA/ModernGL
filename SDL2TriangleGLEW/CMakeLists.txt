@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.11)
 #-------------------------------------------------------------------------------------------
 # I'm going to use vcpk in most cases for our install of 3rd party libs
 # this is going to check the environment variable for CMAKE_TOOLCHAIN_FILE and this must point to where
