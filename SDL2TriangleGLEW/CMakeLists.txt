@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.27)
 #-------------------------------------------------------------------------------------------
 # I'm going to use vcpk in most cases for our install of 3rd party libs
 # this is going to check the environment variable for CMAKE_TOOLCHAIN_FILE and this must point to where
@@ -14,7 +14,17 @@ project(SDL2TriangleGLEWBuild)
 # This is the name of the Exe change this and it will change everywhere
 set(TargetName SDL2TriangleGLEW)
 # find Qt libs
-find_package(SDL2 CONFIG REQUIRED)
+
+include(FetchContent)
+FetchContent_Declare(
+        SDL2
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+        GIT_TAG release-2.28.4
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(SDL2)
+
 find_package(OpenGL REQUIRED)
 if(${CMAKE_SYSTEM_NAME}  MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME}  MATCHES  "Windows")
 	find_package(GLEW REQUIRED)
