@@ -56,3 +56,6 @@ _deps
 #mac
 .DS_Store
 SDL2TriangleGLEW/SDL2TriangleGLEW
+.vscode
+
+SDL2Triangle3DGLMGlew/SDL2Triangle3DGLMGLEW
