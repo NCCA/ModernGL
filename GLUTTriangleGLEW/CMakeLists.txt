@@ -14,7 +14,7 @@ project(GLUTTriangleGLEWBuild)
 # This is the name of the Exe change this and it will change everywhere
 set(TargetName GLUTTriangleGLEW)
 # find Qt libs
-find_package(GLUT REQUIRED)
+find_package(FreeGLUT REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 # use C++ 17
@@ -37,7 +37,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 	target_link_libraries(${TargetName} PRIVATE "-framework Metal")
 
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-	set ( PROJECT_LINK_LIBS -lGL -lX11  -lXxf86vm)
+	set ( PROJECT_LINK_LIBS -lGL -lX11  )
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 	add_compile_definitions(_USE_MATH_DEFINES)
 	add_compile_definitions(NOMINMAX)
@@ -45,5 +45,6 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 endif()
 
 # add exe and link libs that must be after the other defines
-target_link_libraries(${TargetName} PRIVATE  GLUT::GLUT OpenGL::GL)
+target_link_libraries(${TargetName} PRIVATE  OpenGL::GL)
+target_link_libraries(${TargetName} PRIVATE $<IF:$<TARGET_EXISTS:FreeGLUT::freeglut>,FreeGLUT::freeglut,FreeGLUT::freeglut_static>)
 target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}  GLEW::GLEW)

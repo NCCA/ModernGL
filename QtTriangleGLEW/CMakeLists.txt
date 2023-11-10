@@ -16,7 +16,11 @@ set(TargetName QtTriangle)
 # Instruct CMake to run moc automatically when needed (Qt projects only)
 set(CMAKE_AUTOMOC ON)
 # find Qt libs
-find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
+find_package(Qt6 COMPONENTS Widgets OpenGL)
+if (NOT Qt6_FOUND)
+    find_package(Qt5 5.15 REQUIRED COMPONENTS Widgets OpenGL)
+endif()
+
 find_package(OpenGL REQUIRED)
 if(${CMAKE_SYSTEM_NAME}  MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME}  MATCHES "Windows")
 	find_package(GLEW REQUIRED)
@@ -56,7 +60,7 @@ endif()
 
 
 # add exe and link libs that must be after the other defines
-target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}  Qt6::Widgets Qt6::OpenGL OpenGL::GL )
+target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}  Qt::Widgets Qt::OpenGL OpenGL::GL )
 if(${CMAKE_SYSTEM_NAME}  MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME}  MATCHES "Windows")
 	target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}  GLEW::GLEW)
 endif()

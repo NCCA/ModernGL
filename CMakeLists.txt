@@ -23,7 +23,7 @@ endif()
 add_subdirectory(${PROJECT_SOURCE_DIR}/QtTriangleGLEW)
 add_subdirectory(${PROJECT_SOURCE_DIR}/SD2Triangle3DGLMGlew)
 add_subdirectory(${PROJECT_SOURCE_DIR}/SDL2TriangleGLEW)
-add_subdirectory(${PROJECT_SOURCE_DIR}/SFMLTriangleGLEW)
+#add_subdirectory(${PROJECT_SOURCE_DIR}/SFMLTriangleGLEW)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     add_subdirectory(${PROJECT_SOURCE_DIR}/WindowsTriangleGLEW)
