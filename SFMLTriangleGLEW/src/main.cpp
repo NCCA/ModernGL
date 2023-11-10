@@ -1,13 +1,13 @@
-#ifndef __APPLE__
-  #include <gl/GLEW.h>
-#endif
+#include <gl/glew.h>
 #include <SFML/Window.hpp>
 #include <cstdlib>
 #include <iostream>
 #include "GLFunctions.h"
 int main()
 {
-     sf::Window window(sf::VideoMode(1024, 720), "SFML Triangle GLEW", sf::Style::Default, sf::ContextSettings(41));
+    sf::ContextSettings settings(41);
+    settings.depthBits=24;
+    sf::Window window(sf::VideoMode(1024, 720), "SFML Triangle GLEW", sf::Style::Default,settings );
     window.setVerticalSyncEnabled(true);
 
     // activate the window

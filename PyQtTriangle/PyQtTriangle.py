@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 from PyQt5.QtGui import QOpenGLWindow,QSurfaceFormat
 from PyQt5.QtWidgets import QApplication
 from  PyQt5.QtCore import *

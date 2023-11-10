@@ -10,7 +10,7 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE AND DEFINED ENV{CMAKE_TOOLCHAIN_FILE})
 endif()
 
 # Name of the project
-project(MacTriangleuild)
+project(MacTrianglebuild)
 # This is the name of the Exe change this and it will change everywhere
 set(TargetName MacTriangle)
 # find Qt libs

@@ -1,7 +1,5 @@
-#ifndef __APPLE__
-  #include <GL/glew.h>
-#endif
-#include <GL/freeglut.h>
+#include <GL/glew.h>
+#include <GL/glut.h>
 #include <iostream>
 #include <cstdlib>
 #include "GLFunctions.h"
