@@ -9,7 +9,7 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <numeric>
+#include <algorithm>
 #include "GLFunctions.h"
 
 /// @brief function to quit SDL with error message

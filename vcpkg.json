@@ -6,7 +6,6 @@
       "glfw3",
       "sdl2",
       "glm",
-      "sfml",
       "gl3w",
       {
         "name": "freeglut",

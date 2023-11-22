@@ -55,5 +55,6 @@ endif()
 target_link_libraries(${TargetName} PRIVATE  SDL2::SDL2-static OpenGL::GL)
 
 if(${CMAKE_SYSTEM_NAME}  MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME}  MATCHES  "Windows")
-	target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}  GLEW::GLEW glm)
+	target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}
+        GLEW::GLEW glm::glm)
 endif()
