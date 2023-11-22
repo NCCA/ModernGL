@@ -1,0 +1,10 @@
+{
+    "name": "all",
+    "version-string": "1.0.0",
+    "dependencies": [
+      "freeglut",
+      "glew",
+      "glfw3",
+      "sdl2"
+    ]
+  }
