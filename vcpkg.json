@@ -2,9 +2,15 @@
     "name": "all",
     "version-string": "1.0.0",
     "dependencies": [
-      "freeglut",
       "glew",
       "glfw3",
-      "sdl2"
+      "sdl2",
+      "glm",
+      "sfml",
+      "gl3w",
+      {
+        "name": "freeglut",
+        "platform": "!osx"
+      } 
     ]
-  }
+    }

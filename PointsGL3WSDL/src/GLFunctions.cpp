@@ -1,67 +1,53 @@
 #include <memory>
 #include <array>
 #include <iostream>
-#ifndef __APPLE__
-  #include <GL/glew.h>
-#else
-  #include <OpenGL/gl3.h>
-#endif
+#include <vector>
+#include <random>
+#include <GL/gl3w.h>
 
-
-
-GLuint createTriangle(float _size)
+GLuint createPoints(size_t _ammount)
 {
   GLuint vaoID;
   // allocate a VertexArray
   glGenVertexArrays(1, &vaoID);
   // now bind a vertex array object for our verts
   glBindVertexArray(vaoID);
-    // a simple triangle
-  std::array<float,9> vert;	// vertex array
-  vert[0] =-_size; vert[1] =  -_size; vert[2] =0.0f;
-  vert[3] = 0; vert[4] =   _size; vert[5] =0.0f;
-  vert[6] = _size; vert[7] =  -_size; vert[8]= 0.0f;
+  std::vector<float> points(_ammount*3);
+  std::vector<float> colours(_ammount*3);
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_real_distribution<> p(-4.0f, 4.0f);
+  std::uniform_real_distribution colour(0.0f, 1.0f);
+
+  for(size_t i=0; i<_ammount; ++i)
+  {
+    points[i*3]=p(gen);
+    points[i*3+1]=p(gen);
+    points[i*3+2]=p(gen);
+    colours[i*3]=colour(gen);
+    colours[i*3+1]=colour(gen);
+    colours[i*3+2]=colour(gen);
+  }
   // we are going to allocate 3 buffers this time one for verts, colours and normals
-  GLuint vboID[3];
-  glGenBuffers(3, &vboID[0]);
+  GLuint vboID[2];
+  glGenBuffers(2, &vboID[0]);
   // now bind this to the VBO buffer
   glBindBuffer(GL_ARRAY_BUFFER, vboID[0]);
   // allocate the buffer data
-  glBufferData(GL_ARRAY_BUFFER, vert.size()*sizeof(float), &vert[0], GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, points.size()*sizeof(float), &points[0], GL_STATIC_DRAW);
   // now fix this to the attribute buffer 0
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
   // enable and bind this attribute (will be inPosition in the shader)
   glEnableVertexAttribArray(0);
 
-  // Now for the colour
-
-  std::array<float,9> colour={1.0f,0.0f,0.0f,
-                              0.0f,1.0f,0.0f,
-                              0.0f,0.0f,1.0f};
-
   // now bind this to the VBO buffer
   glBindBuffer(GL_ARRAY_BUFFER, vboID[1]);
   // allocate the buffer data
-  glBufferData(GL_ARRAY_BUFFER, colour.size()*sizeof(float), &colour[0], GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, colours.size()*sizeof(float), &colours[0], GL_STATIC_DRAW);
   // now fix this to the attribute buffer 1
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
   // enable and bind this attribute (will be inColour in the shader)
   glEnableVertexAttribArray(1);
-
-
-  std::array<float,9> normals={0.0f,0.0f,1.0f,
-                               0.0f,0.0f,1.0f,
-                               0.0f,0.0f,1.0f};
-
-  // now bind this to the VBO buffer
-  glBindBuffer(GL_ARRAY_BUFFER, vboID[2]);
-  // allocate the buffer data
-  glBufferData(GL_ARRAY_BUFFER, normals.size()*sizeof(float), &normals[0], GL_STATIC_DRAW);
-  // now fix this to the attribute buffer 1
-  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
-  // enable and bind this attribute (will be inColour in the shader)
-  glEnableVertexAttribArray(2);
-
 
   // this basically switches off the current Vertex array object
   glBindVertexArray(0);

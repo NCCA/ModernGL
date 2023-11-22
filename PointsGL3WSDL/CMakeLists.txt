@@ -10,20 +10,23 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE AND DEFINED ENV{CMAKE_TOOLCHAIN_FILE})
 endif()
 
 # Name of the project
-project(SFMLTriangleGLEWBuild)
+project(PointsGL3SDLWBuild)
 # This is the name of the Exe change this and it will change everywhere
-set(TargetName SFMLTriangleGLEW)
+set(TargetName PointsGL3SDL)
 # find Qt libs
-find_package(SFML COMPONENTS system window graphics  REQUIRED)
+find_package(SDL2 CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
-	# use C++ 17
+find_package(gl3w CONFIG REQUIRED)
+# use C++ 17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 # Set the name of the executable we want to build
 add_executable(${TargetName})
 include_directories(include)
+add_compile_definitions(GLM_ENABLE_EXPERIMENTAL)
+
 # Add NGL include path
 target_sources(${TargetName} PRIVATE 
 ${PROJECT_SOURCE_DIR}/src/main.cpp  
@@ -46,5 +49,5 @@ endif()
 
 
 # add exe and link libs that must be after the other defines
-target_link_libraries(${TargetName} PRIVATE FLAC OpenAL OpenGL Vorbis sfml-graphics)
-target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}  GLEW::GLEW)
+target_link_libraries(${TargetName} PRIVATE  SDL2::SDL2-static OpenGL::GL)
+target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS} unofficial::gl3w::gl3w glm::glm)

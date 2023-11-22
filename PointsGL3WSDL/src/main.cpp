@@ -1,12 +1,7 @@
 #ifdef WIN32
     #define SDL_MAIN_HANDLED
 #endif
-#ifndef __APPLE__
-  #include <GL/glew.h>
-#else
-  #include <OpenGL/gl3.h>
-#endif
-
+#include <GL/gl3w.h>
 #include <SDL2/SDL.h>
 #include <cstdlib>
 #include <iostream>
@@ -14,7 +9,7 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
+#include <numeric>
 #include "GLFunctions.h"
 
 /// @brief function to quit SDL with error message
@@ -36,7 +31,7 @@ int main()
   }
 
   // now create our window
-  SDL_Window *window=SDL_CreateWindow("SDL2 OpenGL4.x Triangle",
+  SDL_Window *window=SDL_CreateWindow("SDL2 OpenGL4.x Points Keys 1/2 change point size",
                                       SDL_WINDOWPOS_CENTERED,
                                       SDL_WINDOWPOS_CENTERED,
                                       1024,
@@ -61,36 +56,34 @@ int main()
   /* This makes our buffer swap syncronized with the monitor's vertical refresh */
   SDL_GL_SetSwapInterval(1);
 
-  #ifndef __APPLE__
-    GLenum err = glewInit();
-    if (GLEW_OK != err)
-    {
-      std::cerr<<"Error: "<<glewGetErrorString(err)<<'\n';
-      exit(EXIT_FAILURE);
+   if (gl3wInit()) 
+   {
+    std::cerr<<"failed to initialize OpenGL\n";
+    exit(EXIT_FAILURE); 
+   }
+   if (!gl3wIsSupported(4, 1)) 
+   {
+        fprintf(stderr, "OpenGL 4.1 not supported\n");
+        exit(EXIT_FAILURE);
     }
-    std::cerr<<"Status: Using GLEW"<< glewGetString(GLEW_VERSION)<<'\n';
-  #endif
+      printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION),
+               glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 
   // create the triangle
-  auto vaoID=createTriangle(0.8f);
+constexpr size_t nPoints=10000;;
+auto vaoID=createPoints(nPoints);
 const std::string vertex =R"(
 #version 400 core
-
 layout (location = 0) in vec3  inPosition;
 layout (location = 1) in vec3 inColour;
-layout (location = 2) in vec3 inNormal;
 uniform mat4 MVP;
-uniform mat4 model;
 out vec3 vertColour;
-out vec3 normal;
 out vec3 fragPos;
 void main()
 {
   gl_Position = MVP*vec4(inPosition, 1.0);
   vertColour = inColour;
-  normal = normalize(inNormal);
-  fragPos = vec3(model * vec4(inPosition, 1.0));
 }
 )";
 
@@ -98,19 +91,11 @@ void main()
   const std::string fragment =R"(
 #version 400 core
 in vec3 vertColour;
-in vec3 normal;
-in vec3 fragPos;
 out vec4 fragColour;
-uniform vec3 lightPos;  
 
 void main()
 {
-	vec3 s = normalize(lightPos - fragPos);
-	vec3 v = normalize(-fragPos);
-	vec3 h = normalize( v + s );
-	float sDotN = max( dot(s,normal), 0.0 );
-	vec3 diffuse = vertColour * sDotN;
-  fragColour = vec4(diffuse,1.0);
+  fragColour.rgb=vertColour;
 }
 )";
 
@@ -118,24 +103,22 @@ void main()
   // we will store uniform locations here as it is expensive to look up each time
   // First MVP
   auto MVP=glGetUniformLocation(shaderID,"MVP");
-  auto model=glGetUniformLocation(shaderID,"model");
-  auto lightPos=glGetUniformLocation(shaderID,"lightPos");
 
-  // now set the things that are not going to change much
-  glUniform3f(lightPos,0.0f,2.0f,0.0f);
   // now clear the screen and swap whilst NGL inits (which may take time)
   glClearColor(0.8f,0.8f,0.8f,1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  
   SDL_GL_SwapWindow(window);
   // flag to indicate if we need to exit
   bool quit=false;
   float rotation=0.0f;
   // sdl event processing data structure
   SDL_Event event;
-  glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 3.0f, 3.0f), 
+  glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 6.0f, 10.0f), 
                                glm::vec3(0.0f, 0.0f, 0.0f), 
                                glm::vec3(0.0f, 1.0f, 0.0f));
   glm::mat4 project = glm::perspective(45.0f, static_cast<float> (1024)/720, 0.01f, 200.0f);
+  float pointSize=4.0f;
   while(!quit)
   {
 
@@ -165,6 +148,10 @@ void main()
             case SDLK_w : glPolygonMode(GL_FRONT_AND_BACK,GL_LINE); break;
  
             case SDLK_g : SDL_SetWindowFullscreen(window,SDL_FALSE); break;
+            case SDLK_1 : pointSize-=1.0f; break;
+            case SDLK_2 : pointSize+=1.0f; break;
+            case SDLK_m : glEnable(GL_MULTISAMPLE); break;
+            case SDLK_n : glDisable(GL_MULTISAMPLE); break;
             default : break;
           } // end of key process
         } // end of keydown
@@ -181,9 +168,10 @@ void main()
     auto transform = project * view * rotY; 
     // note the use of glm::value_ptr to convert to gl pointer.
     glUniformMatrix4fv(MVP,1,GL_FALSE,glm::value_ptr(transform));
-    glUniformMatrix4fv(model,1,GL_FALSE,glm::value_ptr(view * rotY));
+    glPointSize(std::clamp(pointSize,1.0f,64.0f));
+
     glBindVertexArray(vaoID);		// select first bind the array
-    glDrawArrays(GL_TRIANGLES, 0, 3);	// draw object
+    glDrawArrays(GL_POINTS, 0, nPoints);	// draw object
 
     // swap the buffers
     SDL_GL_SwapWindow(window);
@@ -208,7 +196,7 @@ SDL_GLContext createOpenGLContext(SDL_Window *window)
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
   // set multi sampling else we get really bad graphics that alias
-  SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+  SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 0);
   SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,4);
   // Turn on double buffering with a 24bit Z buffer.
   // You may need to change this to 16 or 32 for your system
