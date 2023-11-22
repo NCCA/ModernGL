@@ -52,3 +52,7 @@ CMakeScripts
 Makefile
 cmake_install.cmake
 install_manifest.txt
+node_modules
+.vscode 
+.idea
+
