@@ -27,6 +27,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/SDL2TriangleGLEW)
 add_subdirectory(${PROJECT_SOURCE_DIR}/PointsGL3WSDL)
 add_subdirectory(${PROJECT_SOURCE_DIR}/GridLines)
 add_subdirectory(${PROJECT_SOURCE_DIR}/TriangleGrid)
+add_subdirectory(${PROJECT_SOURCE_DIR}/MapBuffer)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     add_subdirectory(${PROJECT_SOURCE_DIR}/WindowsTriangleGLEW)
