@@ -86,7 +86,7 @@ int main()
         case SDL_WINDOWEVENT :
           int w,h;
           // get the new window size
-          SDL_GetWindowSize(window,&w,&h);
+          SDL_GL_GetDrawableSize(window,&w,&h);
           glViewport(0,0,w,h);
         break;
 

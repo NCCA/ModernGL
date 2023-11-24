@@ -68,7 +68,7 @@ int main()
         exit(EXIT_FAILURE);
     }
       
-glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+  glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
   // create the triangle
   auto [vaoID,nVerts]=createTrianglePlane(12.0f,12.0f,40,40);
 

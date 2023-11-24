@@ -3,7 +3,6 @@
 
 #include <string>
 
-  auto vaoID=createTriangle(0.8f);
 const std::string vertex =R"(
 #version 400 core
 
