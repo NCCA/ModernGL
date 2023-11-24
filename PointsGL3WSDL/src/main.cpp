@@ -11,7 +11,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <algorithm>
 #include "GLFunctions.h"
-
+#include "Shaders.h"
 /// @brief function to quit SDL with error message
 /// @param[in] _msg the error message to send
 void SDLErrorExit(const std::string &_msg);
@@ -66,39 +66,11 @@ int main()
         fprintf(stderr, "OpenGL 4.1 not supported\n");
         exit(EXIT_FAILURE);
     }
-      printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION),
-               glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 
   // create the triangle
-constexpr size_t nPoints=10000;;
-auto vaoID=createPoints(nPoints);
-const std::string vertex =R"(
-#version 400 core
-layout (location = 0) in vec3  inPosition;
-layout (location = 1) in vec3 inColour;
-uniform mat4 MVP;
-out vec3 vertColour;
-out vec3 fragPos;
-void main()
-{
-  gl_Position = MVP*vec4(inPosition, 1.0);
-  vertColour = inColour;
-}
-)";
-
- // some source for our fragment shader
-  const std::string fragment =R"(
-#version 400 core
-in vec3 vertColour;
-out vec4 fragColour;
-
-void main()
-{
-  fragColour.rgb=vertColour;
-}
-)";
-
+  constexpr size_t nPoints=10000;;
+  auto vaoID=createPoints(nPoints);
   auto shaderID=loadShaderFromStrings(vertex,fragment);
   // we will store uniform locations here as it is expensive to look up each time
   // First MVP

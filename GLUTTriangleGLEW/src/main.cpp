@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "GLFunctions.h"
+#include "Shaders.h"
 
 GLuint gvaoID;
 GLuint gshaderID;
@@ -73,33 +74,8 @@ int main(int argc, char *argv[])
     std::cerr<<"Status: Using GLEW"<< glewGetString(GLEW_VERSION)<<'\n';
   #endif
 
-
   // create the triangle
-gvaoID=createTriangle(0.8f);
-const std::string vertex =R"(
-#version 400 core
-
-layout (location = 0) in vec3  inPosition;
-layout (location = 1) in vec3 inColour;
-out vec3 vertColour;
-void main()
-{
-  gl_Position = vec4(inPosition, 1.0);
-  vertColour = inColour;
-}
-)";
-
- // some source for our fragment shader
-  const std::string fragment =R"(
-#version 400 core
-in vec3 vertColour;
-out vec4 fragColour;
-void main()
-{
-  fragColour = vec4(vertColour,1.0);
-}
-)";
-
+  gvaoID=createTriangle(0.8f);
   gshaderID=loadShaderFromStrings(vertex,fragment);
 
   glClearColor(0.8f,0.8f,0.8f,1.0f);

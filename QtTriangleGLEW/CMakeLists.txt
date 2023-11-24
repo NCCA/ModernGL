@@ -22,9 +22,7 @@ if (NOT Qt6_FOUND)
 endif()
 
 find_package(OpenGL REQUIRED)
-if(${CMAKE_SYSTEM_NAME}  MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME}  MATCHES "Windows")
-	find_package(GLEW REQUIRED)
-endif()
+find_package(GLEW REQUIRED)
 	# use C++ 17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -61,6 +59,4 @@ endif()
 
 # add exe and link libs that must be after the other defines
 target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}  Qt::Widgets Qt::OpenGL OpenGL::GL )
-if(${CMAKE_SYSTEM_NAME}  MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME}  MATCHES "Windows")
-	target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}  GLEW::GLEW)
-endif()
+target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}  GLEW::GLEW)

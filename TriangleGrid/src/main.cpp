@@ -11,6 +11,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <algorithm>
 #include "GLFunctions.h"
+#include "Shaders.h"
 
 /// @brief function to quit SDL with error message
 /// @param[in] _msg the error message to send
@@ -69,31 +70,7 @@ int main()
       
 
   // create the triangle
-auto [vaoID,nVerts]=createTrianglePlane(10.0f,10.0f,20,12);
-
-const std::string vertex =R"(
-#version 400 core
-layout (location = 0) in vec3  inPosition;
-layout (location = 1) in vec3  inNormal;
-layout (location = 2) in vec2  inUV;
-
-uniform mat4 MVP;
-void main()
-{
-  gl_Position = MVP*vec4(inPosition, 1.0);
-}
-)";
-
- // some source for our fragment shader
-const std::string fragment =R"(
-#version 400 core
-out vec4 fragColour;
-
-void main()
-{
-  fragColour=vec4(1.0,1.0,1.0,1.0);
-}
-)";
+  auto [vaoID,nVerts]=createTrianglePlane(10.0f,10.0f,20,12);
 
   auto shaderID=loadShaderFromStrings(vertex,fragment);
   // we will store uniform locations here as it is expensive to look up each time
