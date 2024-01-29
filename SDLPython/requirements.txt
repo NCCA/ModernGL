@@ -1,0 +1,3 @@
+PySDL2
+numpy
+pyopengl
